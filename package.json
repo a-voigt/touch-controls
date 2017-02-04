@@ -1,0 +1,27 @@
+{
+  "name": "touch-controls",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "ISC",
+  "scripts": {
+    "build": "webpack src/index.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-react-jsx"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "webpack": "^2.2.1"
+  }
+}
