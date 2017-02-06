@@ -12,7 +12,7 @@ class TouchControls extends Component {
   }
 
   static defaultProps = {
-    tapTolerance: 15,
+    tapTolerance: 10,
     moveTolerance: 60
   }
 
@@ -48,6 +48,7 @@ class TouchControls extends Component {
   }
 
   handleTouchEnd(event) {
+    console.log(this.state.touchMoved);
     if (this.state.touchMoved && this.props.onSwipe) {
       const direction = this.getSwipeDirection();
 
@@ -55,7 +56,8 @@ class TouchControls extends Component {
         this.props.onSwipe(event, direction);
       }
     }
-    else if (this.state.touchMoved && this.props.onSlideEnd) {
+    else if (this.state.touchMoved && this.props.onDragEnd) {
+      console.log('Drag end');
       this.props.onDragEnd(event);
     }
     else if (this.props.onTap) {
@@ -88,18 +90,20 @@ class TouchControls extends Component {
     const moveX = currentX - this.state.lastX;
     const moveY = currentY - this.state.lastY;
 
-    if (!this.touchMoved && (Math.abs(moveX) <= this.props.tapTolerance || Math.abs(moveY) <= this.props.tapTolerance)) {
-      this.touchMoved = true;
+    let touchMoved = this.state.touchMoved;
+
+    if (!touchMoved && (Math.abs(moveX) <= this.props.tapTolerance || Math.abs(moveY) <= this.props.tapTolerance)) {
+      touchMoved = true;
     }
 
     if (this.props.onDrag) {
-      console.log(moveX)
       this.props.onDrag(event, moveX, moveY);
     }
 
     this.setState({
       lastX: currentX,
-      lastY: currentY
+      lastY: currentY,
+      touchMoved: touchMoved
     });
   }
 
